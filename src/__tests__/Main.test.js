@@ -12,7 +12,7 @@ const useTheme = (children) => {
 }
 afterEach(cleanup);
 
-test('Should render words as buttons', () => {
+test('Should render passed text as words', () => {
     const { getByA11yLabel } = render(useTheme(<Main text="One Two Three Four Five" />));
     const questions = getByA11yLabel('questions');
     const oneButton = within(questions).getByText('One');
@@ -28,7 +28,7 @@ test('Should be able to select word', () => {
     expect(selectedButton).toBeDefined();
 });
 
-test('Should be able to uselect word', () => {
+test('Should be able to unselect word', () => {
     const { getByText, getByA11yLabel } = render(useTheme(<Main text="One Two Three Four Five" />));
     const button = getByText('One');
     //select word
@@ -53,7 +53,7 @@ test('Should show error when wrong answer is submitted', () => {
     expect(failureMessage).toBeDefined();
 });
 
-test('Should clear error message when button is clicked', () => {
+test('Should clear error message when button is clicked again', () => {
     //check if error appears
     const { getByText } = render(useTheme(<Main text="One Two Three Four Five" />));
     const submitButton = getByText('Submit');
