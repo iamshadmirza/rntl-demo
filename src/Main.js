@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Stack, Card, Button, Text, Box } from 'react-native-design-system';
+import { Stack, Card, Button, Text, Box, Header } from 'react-native-design-system';
+import { ScrollView } from 'react-native'
 
 function generateRandomString (text) {
     const array = text.split(' ');
@@ -44,48 +45,53 @@ export default function Main({ text }) {
     }
     
     return (
-        <Stack style={{ margin: 10, backgroundColor: '#fefefe'}}>
-            <Card shadow>
-                <Box>
-                    <Text size="xlarge">Arrange the words to form a sentence</Text>
-                </Box>
-                <Card outline>
-                    <Stack direction="horizontal" verticalSpace="xsmall">
-                        {question.length > 0
-                            ? question.map((item, index) => (
-                                <Button key={index} outline round onPress={() => selectWord(item)}>{item}</Button>
-                            ))
-                            : <Text>Click submit to check result</Text>
-                        }
-                    </Stack>
+        <ScrollView>
+            <Header>Game Time</Header>
+            <Stack style={{ margin: 10, backgroundColor: '#fefefe'}}>
+                <Card shadow>
+                    <Box>
+                        <Text size="xlarge">Arrange the words to form a sentence</Text>
+                    </Box>
+                    <Card outline>
+                        <Stack direction="horizontal" accessibilityLabel="questions" verticalSpace="xsmall" cropEndSpace>
+                            {question.length > 0
+                                ? question.map((item, index) => (
+                                    <Button key={index} outline round onPress={() => selectWord(item)}>{item}</Button>
+                                ))
+                                : <Text>Click submit to check result</Text>
+                            }
+                        </Stack>
+                    </Card>
                 </Card>
-            </Card>
-            <Card shadow>
-                <Box>
-                    <Text size="xlarge">Arranged words</Text>
-                </Box>
-                <Card outline>
-                    <Stack direction="horizontal" verticalSpace="xsmall">
-                        {answer.length > 0
-                            ? answer.map((item, index) => (
-                                <Button key={index} outline round onPress={() => unselectWord(item)}>{item}</Button>
-                            ))
-                            : <Text>Select some words to show here</Text>
-                        }
-                    </Stack>
+                <Card shadow>
+                    <Box>
+                        <Text size="xlarge">Arranged words</Text>
+                    </Box>
+                    <Card outline>
+                        <Stack direction="horizontal" accessibilityLabel="answers" verticalSpace="xsmall" cropEndSpace>
+                            {answer.length > 0
+                                ? answer.map((item, index) => (
+                                    <Button key={index} outline round onPress={() => unselectWord(item)}>{item}</Button>
+                                ))
+                                : <Text>Select some words to show here</Text>
+                            }
+                        </Stack>
+                    </Card>
                 </Card>
-            </Card>
-            <Button onPress={checkResult}>Submit</Button>
-            <Box>
                 {result !== null
                     ? (
-                        <Text size="xxlarge" style={{ color: result ? 'green' : 'red'}}>
-                            {result ? 'Correct answer 🥳' : 'Wrong answer 😢'}
-                        </Text> 
+                        <Box space="xsmall">
+                            <Text size="large" style={{ color: result ? 'green' : 'red'}}>
+                                {result ? 'Correct answer 🥳' : 'Wrong answer 😢'}
+                            </Text>
+                        </Box> 
                     )
                     : null
                 }
-            </Box>
-        </Stack>
-    )
+            </Stack>
+            <Card space="xsmall">
+                <Button onPress={checkResult}>Submit</Button>
+            </Card>
+        </ScrollView>
+    );
 }
