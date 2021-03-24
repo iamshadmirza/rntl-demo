@@ -10,6 +10,7 @@ const useTheme = (children) => {
         </ThemeProvider>
     );
 }
+
 afterEach(cleanup);
 
 test('Should render passed text as words', () => {
