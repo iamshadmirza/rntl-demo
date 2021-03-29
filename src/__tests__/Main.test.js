@@ -3,7 +3,7 @@ import { render, fireEvent, within, cleanup } from '@testing-library/react-nativ
 import Main from '../Main';
 import { ThemeProvider, theme } from 'react-native-design-system';
 
-const useTheme = (children) => {
+const ThemeWrapper = (children) => {
     return (
         <ThemeProvider value={theme}>
             {children}
@@ -11,17 +11,15 @@ const useTheme = (children) => {
     );
 }
 
-afterEach(cleanup);
-
 test('Should render passed text as words', () => {
-    const { getByA11yLabel } = render(useTheme(<Main text="One Two Three Four Five" />));
+    const { getByA11yLabel } = render(ThemeWrapper(<Main text="One Two Three Four Five" />));
     const questions = getByA11yLabel('questions');
     const oneButton = within(questions).getByText('One');
     expect(oneButton).toBeDefined();
 });
 
 test('Should be able to select word', () => {
-    const { getByText, getByA11yLabel } = render(useTheme(<Main text="One Two Three Four Five" />));
+    const { getByText, getByA11yLabel } = render(ThemeWrapper(<Main text="One Two Three Four Five" />));
     const button = getByText('One');
     fireEvent.press(button);
     const answers = getByA11yLabel('answers');
@@ -30,7 +28,7 @@ test('Should be able to select word', () => {
 });
 
 test('Should be able to unselect word', () => {
-    const { getByText, getByA11yLabel } = render(useTheme(<Main text="One Two Three Four Five" />));
+    const { getByText, getByA11yLabel } = render(ThemeWrapper(<Main text="One Two Three Four Five" />));
     const button = getByText('One');
     //select word
     fireEvent.press(button);
@@ -45,7 +43,7 @@ test('Should be able to unselect word', () => {
 });
 
 test('Should show error when wrong answer is submitted', () => {
-    const { getByText } = render(useTheme(<Main text="One Two Three Four Five" />));
+    const { getByText } = render(ThemeWrapper(<Main text="One Two Three Four Five" />));
     const button = getByText('One');
     fireEvent.press(button);
     const submitButton = getByText('Submit');
@@ -56,7 +54,7 @@ test('Should show error when wrong answer is submitted', () => {
 
 test('Should clear error message when button is clicked again', () => {
     //check if error appears
-    const { getByText } = render(useTheme(<Main text="One Two Three Four Five" />));
+    const { getByText } = render(ThemeWrapper(<Main text="One Two Three Four Five" />));
     const submitButton = getByText('Submit');
     fireEvent.press(submitButton);
     const failureMessage = getByText('Wrong answer 😢');
@@ -68,7 +66,7 @@ test('Should clear error message when button is clicked again', () => {
 });
 
 test('Should show win message when correct answer is submitted', () => {
-    const { getByText } = render(useTheme(<Main text="One Two Three Four Five" />));
+    const { getByText } = render(ThemeWrapper(<Main text="One Two Three Four Five" />));
 
     const buttonOne = getByText('One');
     fireEvent.press(buttonOne);
