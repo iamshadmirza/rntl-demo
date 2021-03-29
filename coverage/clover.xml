@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1617018513324" clover="3.2.0">
-  <project timestamp="1617018513324" name="All files">
+<coverage generated="1617023657177" clover="3.2.0">
+  <project timestamp="1617023657177" name="All files">
     <metrics statements="29" coveredstatements="29" conditionals="12" coveredconditionals="12" methods="12" coveredmethods="12" elements="53" coveredelements="53" complexity="0" loc="29" ncloc="29" packages="1" files="1" classes="1"/>
     <file name="Main.js" path="/Users/mdshadmirza/personal/rntl-demo/src/Main.js">
       <metrics statements="29" coveredstatements="29" conditionals="12" coveredconditionals="12" methods="12" coveredmethods="12"/>

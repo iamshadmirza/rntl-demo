@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, within, cleanup } from '@testing-library/react-native';
+import { render, fireEvent, within } from '@testing-library/react-native';
 import Main from '../Main';
 import { ThemeProvider, theme } from 'react-native-design-system';
 
@@ -54,7 +54,7 @@ test('Should show error when wrong answer is submitted', () => {
 
 test('Should clear error message when button is clicked again', () => {
     //check if error appears
-    const { getByText } = render(ThemeWrapper(<Main text="One Two Three Four Five" />));
+    const { getByText, queryByText } = render(ThemeWrapper(<Main text="One Two Three Four Five" />));
     const submitButton = getByText('Submit');
     fireEvent.press(submitButton);
     const failureMessage = getByText('Wrong answer 😢');
@@ -62,7 +62,7 @@ test('Should clear error message when button is clicked again', () => {
     //check if error message dissapears
     const button = getByText('One');
     fireEvent.press(button);
-    expect(() => getByText('Wrong answer 😢')).toThrow("Unable to find an element with text: Wrong answer 😢");
+    expect(queryByText('Wrong answer 😢')).toBeNull();
 });
 
 test('Should show win message when correct answer is submitted', () => {
